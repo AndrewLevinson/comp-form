@@ -1,47 +1,40 @@
+let image;
+function preload() {
+  // load random image from Unsplash API
+  image = loadImage("https://source.unsplash.com/random/300x300");
+}
+
 function setup() {
-  createCanvas(200, 200);
-  background("#fff");
+  createCanvas(600, 600, WEBGL);
   colorMode(HSB, 100);
   noStroke();
 
-  // color values with all colors representated 1 time but white 4 times to increase probability of being selected.
+  let s = 50;
+  let b = 90;
   colorOptions = [
-    "#D01619", // red
-    "#050404", // black
-    "#FED308", // yellow
-    "#344D90", // blue
-    "#F9F9F9", // white
-    "#F9F9F9", // white
-    "#F9F9F9", // white
-    "#F9F9F9" // white
+    color(10, s, b),
+    color(30, s, b),
+    color(50, s, b),
+    color(70, s, b),
+    color(90, s, b)
   ];
-}
+  background(colorOptions[floor(random(colorOptions.length))]);
 
-function draw() {
-  frameRate(2);
-  // spacing of Mondrian style boxes inspired by https://editor.p5js.org/CarlieZ/sketches/BkYuHVX2
-  fill(colorOptions[floor(random(0, colorOptions.length))]);
-  rect(0, 0, 50, 200);
+  // center
+  push();
+  // translate(300, 300);
 
-  fill(colorOptions[floor(random(0, colorOptions.length))]);
-  rect(50, 0, 150, 200);
+  for (i = 0; i < 15; i++) {
+    rotate(i);
+    texture(image);
+    rect(random(-300, 300), random(-300, 300), random(15, 60), random(20, 400));
+    ellipse(random(-300, 300), random(-300, 300), random(10, 80));
+  }
+  pop();
+  translate(-300, -300);
 
-  fill(colorOptions[floor(random(0, colorOptions.length))]);
-  rect(50, 135, 200, 200);
-
-  fill(colorOptions[floor(random(0, colorOptions.length))]);
-  rect(0, 135, 50, 70);
-
-  fill(colorOptions[floor(random(0, colorOptions.length))]);
-  rect(180, 170, 180, 70);
-
-  fill(colorOptions[floor(random(0, colorOptions.length))]);
-  rect(180, 165, 50, 10);
-
-  // fixed black borders
-  fill("#000");
-  rect(43, 0, 8, 200);
-  rect(0, 135, 200, 8);
-  rect(0, 65, 50, 12);
-  rect(177, 135, 7, 90);
+  strokeWeight(4);
+  stroke(colorOptions[floor(random(colorOptions.length))]);
+  noFill();
+  rect(0, 0, 600, 600);
 }
