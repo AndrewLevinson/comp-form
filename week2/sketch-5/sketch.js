@@ -4,7 +4,7 @@ function setup() {
   colorMode(HSB, 100);
   noStroke();
 
-  // color values with all colors represented 1 time but white 4 times to increase the probability of being selected.
+  // color values with all colors representated 1 time but white 4 times to increase probability of being selected.
   colorOptions = [
     "#D01619", // red
     "#050404", // black
