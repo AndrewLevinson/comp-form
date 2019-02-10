@@ -9,11 +9,17 @@ let emotions = [];
 let shapes = [];
 
 function preload() {
-  happy = loadImage("happy.png");
+  happy = loadImage(
+    "https://raw.githubusercontent.com/AndrewLevinson/comp-form/master/week3/sketch-1/happy.png"
+  );
   emotions.push(happy);
-  sad = loadImage("sad.png");
+  sad = loadImage(
+    "https://raw.githubusercontent.com/AndrewLevinson/comp-form/master/week3/sketch-1/sad.png"
+  );
   emotions.push(sad);
-  hippo = loadImage("hippo.png");
+  hippo = loadImage(
+    "https://raw.githubusercontent.com/AndrewLevinson/comp-form/master/week3/sketch-1/hippo.png"
+  );
   emotions.push(hippo);
 }
 
