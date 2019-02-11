@@ -1,8 +1,8 @@
-// require https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js
-// require https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/addons/p5.dom.js
+// require https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.js
+// require https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.dom.js
 
 let selector, happy, sad, hippo;
-let image = 0;
+let emoji = 0;
 let paused = false;
 
 let emotions = [];
@@ -23,7 +23,7 @@ function preload() {
   emotions.push(hippo);
 }
 
-class Ball {
+class Shape {
   constructor(x, y, r) {
     this.x = x;
     this.y = y;
@@ -61,24 +61,24 @@ function moveStuff() {
 function drawStuff() {
   translate(-300, -300);
 
-  shapes.push(new Ball(Math.random() * 500, 0, Math.random() * 30));
+  shapes.push(new Shape(Math.random() * 500, 0, Math.random() * 30));
 
   noStroke();
   background(color(30, 15, 95));
 
   if (selector.value() === "happy") {
-    image = 0;
+    emoji = 0;
     background(80, 15, 95);
   } else if (selector.value() === "sad") {
-    image = 1;
+    emoji = 1;
     background(0, 10, 10);
   } else if (selector.value() === "hippo") {
-    image = 2;
+    emoji = 2;
     background(30, 15, 95);
   }
 
   for (const b of shapes) {
-    texture(emotions[image]);
+    texture(emotions[emoji]);
     ellipse(b.x, b.y, b.r);
   }
 }
