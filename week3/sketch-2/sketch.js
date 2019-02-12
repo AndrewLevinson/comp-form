@@ -9,18 +9,16 @@ function setup() {
   createCanvas(300, 300);
   textFont("Monospace");
 
-  createP("<br> ");
   createP("Font Weight");
   weightSelector = createSelect();
-  weightSelector.option("Regular", "regular");
-  weightSelector.option("Bold", "bold");
-  weightSelector.option("Italics", "italics");
-  createP("<br> ");
+  weightSelector.option("Regular", NORMAL);
+  weightSelector.option("Bold", BOLD);
+  weightSelector.option("Italics", ITALIC);
 
   createP("Font Size");
   fontSizeSlider = createSlider(10, 50, 30, 1);
 
-  createP("Tracking");
+  createP("Letter Tracking");
   trackingSlider = createSlider(0, 80, 20, 0.5);
 
   createP("Text Transform");
@@ -28,9 +26,8 @@ function setup() {
   selector.option("Lower Case", "lower");
   selector.option("Upper Case", "upper");
   createP("<br> ");
-  createP("<br> ");
 
-  createP("Vertical Angle");
+  createP("Y Position (staggered)");
   vertSlider = createSlider(-50, 50, 0, 1);
 
   createP("Number of Characters");
@@ -47,28 +44,20 @@ function moveStuff() {
   numLetters = sliderNum.value();
   vert = vertSlider.value();
   fontSize = fontSizeSlider.value();
+  fontWeight = weightSelector.value();
 }
 
 function drawStuff() {
   background(50, 10, 95);
   fill(50, 10, 25);
   textSize(fontSize);
-
-  if (weightSelector.value() === "regular") {
-    fontWeight = NORMAL;
-  } else if (weightSelector.value() === "bold") {
-    fontWeight = BOLD;
-  } else if (weightSelector.value() === "italics") {
-    fontWeight = ITALIC;
-  }
-
   textStyle(fontWeight);
+
   for (i = 0; i < numLetters; i++) {
-    if (selector.value() === "upper") {
-      textContent = `${char(97 + i).toUpperCase()}`;
-    } else if (selector.value() === "lower") {
-      textContent = `${char(97 + i).toLowerCase()}`;
-    }
+    selector.value() === "upper"
+      ? (textContent = `${char(97 + i).toUpperCase()}`)
+      : (textContent = `${char(97 + i).toLowerCase()}`);
+
     text(textContent, x + i * tracking, y + i * vert);
   }
 }
