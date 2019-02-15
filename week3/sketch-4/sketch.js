@@ -8,7 +8,7 @@ let input, button, selector;
 function setup() {
   // create canvas
   colorMode(HSB, 100);
-  createCanvas(600, 600);
+  createCanvas(600, 400);
   background(90, 10, 99);
 
   input = createInput().attribute("placeholder", " Enter text to translate");
@@ -41,12 +41,14 @@ function gen() {
 
   fetch(`https://api.funtranslations.com/translate/${type}.json?text=${query}`)
     .then(response => {
-      return response;
+      return response.json();
     })
     .then(data => {
       console.log(data);
-      text(`Translated: ${data.contents.translated}`, 10, 150);
-      text(`Original: ${data.contents.text}`, 10, 250);
+      textStyle(BOLD);
+      text(`${type} translation: ${data.contents.translated}`, 10, 150);
+      textStyle(NORMAL);
+      text(`Original text: ${data.contents.text}`, 10, 220);
     })
     .catch(err => {
       console.log("Error happened during fetching!", err);
