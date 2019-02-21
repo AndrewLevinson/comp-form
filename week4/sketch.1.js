@@ -12,7 +12,9 @@ let xoff1 = 0;
 let xoff2 = 10000;
 
 function preload() {
-  emoji = loadImage("bee.png");
+  emoji = loadImage(
+    "https://raw.githubusercontent.com/AndrewLevinson/comp-form/master/week4/sketch-2/bee.png"
+  );
 }
 
 class Bee {
