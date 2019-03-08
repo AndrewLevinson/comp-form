@@ -2,7 +2,13 @@
 // require https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.dom.js
 
 // Dot Challenge
-let canvas = { width: 400, height: 400 };
+let canvas = { width: 500, height: 500 };
+let myImage;
+
+function preload() {
+  myImage = loadImage("image.jpg");
+  // worldImage = loadImage("/pixels/sketches/world_100.png");
+}
 
 function setup() {
   createCanvas(canvas.width, canvas.height);
@@ -10,31 +16,25 @@ function setup() {
 }
 
 function draw() {
-  background(20);
+  background(20, 77, 70);
 
+  fill(10, 50, 50);
   noStroke();
-  ellipseMode(CENTER);
 
-  var noiseFrequency = 0.02;
-
-  for (var i = 0; i < 100; i++) {
-    // these points are not scattered in the same way
-    // how can you make the arrangement match the challenge?
-    var x =
-      (random(canvas.width) + random(canvas.width) + random(canvas.width)) / 3;
-    var y =
-      (random(canvas.height) + random(canvas.height) + random(canvas.height)) /
-      3;
-
-    // the diameter shouldn't always be 10, it needs to vary
-    var diameter = random(3, 16);
-
-    // the colors also need to change
-    // what colorMode would be easiest to work with?
-    fill(noise(x * noiseFrequency, y * noiseFrequency) * 125, 100, 100);
-
-    ellipse(x, y, diameter);
+  let spacing = 715 / myImage.width;
+  for (let y = 0; y < myImage.height; y++) {
+    for (let x = 0; x < myImage.width; x++) {
+      let in_color = myImage.get(x, y);
+      let dot_size = (lightness(in_color) / 100) * 10;
+      ellipse(
+        x * spacing + spacing * 0.85,
+        y * spacing + spacing * 0.85,
+        dot_size
+      );
+    }
   }
+
+  // we don't draw the image, its just input
 
   noLoop();
 }

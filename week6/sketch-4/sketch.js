@@ -2,44 +2,78 @@
 // require https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.dom.js
 
 // Dot Challenge
-let canvas = { width: 400, height: 400 };
+let canvas = { width: 640, height: 320 };
+
+// draws some grass with density driven by a luminance map image
+
+let testImage;
+
+function preload() {
+  testImage = loadImage("image.png");
+  // noLoop();
+}
 
 function setup() {
-  createCanvas(canvas.width, canvas.height);
-  colorMode(HSB, 100);
+  // create a place to draw
+  createCanvas(testImage.width, testImage.height);
+
+  // load up the pixel[] array so we can read colors out of it later
+  testImage.loadPixels();
 }
-let gap = 100;
 
 function draw() {
-  background(20);
+  // clear the background
+  background(0, 0, 0);
 
-  noStroke();
-  ellipseMode(CENTER);
+  // set drawing styles
+  fill(255, 255, 255);
+  stroke(255, 100, 100, 50);
 
-  var noiseFrequency = 0.02;
+  let start = millis();
 
-  randomSeed(1);
-  for (z = 0; z < 400; z++) {
-    for (var i = 0; i < 100; i++) {
-      // these points are not scattered in the same way
-      // how can you make the arrangement match the challenge?
+  // loop over every x,y pixel coordinate in the image
+  for (x = 0; x < testImage.width; x++) {
+    for (y = 0; y < testImage.height; y++) {
+      let pixelRed = getQuick(testImage, x, y)[0];
 
-      // let x = random(canvas.width * 0.1) + 25;
-      let x = noise(frameCount * 0.03, frameCount * 0.03) * 100;
-
-      let y = random(canvas.height);
-
-      // the diameter shouldn't always be 10, it needs to vary
-      let diameter = random(3, 16);
-
-      // the colors also need to change
-      // what colorMode would be easiest to work with?
-      fill(noise(x * noiseFrequency, y * noiseFrequency) * 125, 100, 100);
-
-      ellipse(x + z, y, diameter);
+      // pick a random value and compare it pixelRed
+      if (random(100, 255) < pixelRed) {
+        drawGrassBlade(x, y);
+      }
     }
-    z += gap;
   }
 
-  // noLoop();
+  let end = millis();
+
+  console.log(`took ${floor(end - start)} ms`);
+}
+
+function drawGrassBlade(x, y) {
+  let bladeHeight = max(
+    random(1, 30),
+    random(1, 30),
+    random(1, 30),
+    random(1, 30),
+    random(1, 30),
+    random(1, 30)
+  );
+
+  let bladeLean = random(-0.3, 0.3);
+  bladeLean *= bladeHeight;
+
+  line(x, y, x + bladeLean, y - bladeHeight);
+}
+
+// find the RGBA values of the pixel at x, y in the img.pixels array
+// see: http://p5js.org/reference/#/p5/pixels[]
+// we don't need to worry about screen pixel density here, because we are not reading from the screen
+
+function getQuick(img, x, y) {
+  let i = (y * img.width + x) * 4;
+  return [
+    testImage.pixels[i],
+    testImage.pixels[i + 1],
+    testImage.pixels[i + 2],
+    testImage.pixels[i + 3]
+  ];
 }
