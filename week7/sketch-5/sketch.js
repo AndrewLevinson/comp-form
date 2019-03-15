@@ -3,92 +3,30 @@
 
 let canvas = { width: 500, height: 500 };
 
+let myTurtle;
+let myWeight;
+
 function setup() {
-  createCanvas(canvas.width, canvas.height);
+  createCanvas(500, 500);
   colorMode(HSB, 100);
+  noLoop();
+  myTurtle = new Turtle();
+
+  myWeight = noise(50, 50) * 5;
 }
 
 function draw() {
-  // background(50, 10, 90);
+  frameRate(10);
+  // background(90);
+  myTurtle.penUp();
+  myTurtle.moveTo(250, 250);
+  myTurtle.penDown();
 
-  img = createImage(10, 20);
-  img.loadPixels();
-
-  // ocean
-  for (var i = 0; i < 20; i++) {
-    var c = color(50, 40, 90);
-    img.set(i, 19, c);
-    img.set(i, 18, c);
-    img.set(i, 16, c);
-    img.set(i, 17, c);
-    img.set(i, 15, c);
-    img.set(i, 14, c);
-    img.set(i, 13, c);
+  for (let i = 0; i < 150; i++) {
+    myWeight = myWeight + 0.2;
+    strokeWeight(myWeight);
+    stroke(random(20), 30, 80);
+    myTurtle.moveForward(i * 8);
+    myTurtle.turnLeft(90.2);
   }
-
-  // sand light
-  for (var i = 0; i < 10; i++) {
-    var c = color(10, 40, 90);
-    img.set(i, 10, c);
-    img.set(i, 9, c);
-    img.set(i, 8, c);
-    img.set(i, 7, c);
-
-    img.set(i, 11, c);
-    img.set(i, 12, c);
-  }
-  // ocean creep
-  for (var i = 0; i < 10; i++) {
-    var c = color(50, 40, 90);
-    img.set(random(5), random(12, 13), c);
-    img.set(random(i), random(11, 12), c);
-  }
-
-  // sky
-  for (var i = 0; i < 10; i++) {
-    var c = color(80, 10, 90);
-    img.set(i, 0, c);
-    img.set(i, 1, c);
-    img.set(i, 2, c);
-  }
-
-  // buildings
-  for (var i = 0; i < 10; i++) {
-    var c = color(30, 90, 10);
-    img.set(i, 6, c);
-    img.set(i, 5, c);
-    img.set(i, 4, c);
-    // img.set(i, 3, c);
-  }
-
-  // buildings top
-  for (var i = 0; i < 10; i++) {
-    var c = color(30, 90, 10);
-    img.set(0, 1, c);
-    img.set(0, 2, c);
-    img.set(0, 3, c);
-    img.set(1, 3, c);
-    img.set(2, 2, c);
-    img.set(2, 3, c);
-    img.set(3, 1, c);
-    img.set(3, 2, c);
-    img.set(3, 3, c);
-    img.set(4, 3, c);
-    img.set(6, 3, c);
-    img.set(5, 3, c);
-    img.set(5, 2, c);
-    img.set(5, 1, c);
-    img.set(7, 3, c);
-    img.set(7, 2, c);
-    img.set(8, 3, c);
-    img.set(8, 1, c);
-    img.set(8, 2, c);
-    img.set(9, 3, c);
-  }
-
-  img.updatePixels();
-
-  noSmooth();
-  image(img, 0, 0, width, height);
-  noLoop();
 }

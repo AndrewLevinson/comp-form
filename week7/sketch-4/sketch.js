@@ -1,79 +1,98 @@
-// require https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.js
-// require https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.dom.js
+// require https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js
+// require /turtles/turtle/turtle.js
 
-// Dot Challenge
-let canvas = { width: 640, height: 320 };
-
-// draws some grass with density driven by a luminance map image
-
-let testImage;
-
-function preload() {
-  testImage = loadImage("image.png");
-  // noLoop();
-}
+var myTurtle;
 
 function setup() {
-  // create a place to draw
-  createCanvas(testImage.width, testImage.height);
-
-  // load up the pixel[] array so we can read colors out of it later
-  testImage.loadPixels();
+  createCanvas(500, 500);
+  colorMode(HSB, 100);
+  myTurtle = new Turtle();
 }
 
 function draw() {
-  // clear the background
-  background(0, 0, 0);
+  background(70, 5, 80);
 
-  // set drawing styles
-  fill(255, 255, 255);
-  stroke(255, 100, 100, 50);
+  noFill();
+  stroke(100, 100, 100);
+  strokeWeight(4);
 
-  let start = millis();
-
-  // loop over every x,y pixel coordinate in the image
-  for (x = 0; x < testImage.width; x++) {
-    for (y = 0; y < testImage.height; y++) {
-      let pixelRed = getQuick(testImage, x, y)[0];
-
-      // pick a random value and compare it pixelRed
-      if (random(100, 255) < pixelRed) {
-        drawGrassBlade(x, y);
-      }
-    }
+  // arch biggest
+  myTurtle.penUp();
+  myTurtle.moveTo(-40, 15);
+  myTurtle.penDown();
+  myTurtle.pushState();
+  // draw the triangle
+  for (var i = 0; i < 102; i++) {
+    stroke(random(85, 100), random(100), random(100));
+    myTurtle.moveForward(600);
+    myTurtle.turnRight(78);
   }
+  myTurtle.popState();
 
-  let end = millis();
+  // arch big
+  myTurtle.penUp();
+  myTurtle.moveTo(0, 150);
+  myTurtle.penDown();
+  myTurtle.pushState();
+  // draw the triangle
+  for (var i = 0; i < 82; i++) {
+    stroke(random(70, 100), random(100), random(100), 90);
+    myTurtle.moveForward(500);
+    myTurtle.turnRight(78);
+  }
+  myTurtle.popState();
 
-  console.log(`took ${floor(end - start)} ms`);
-}
+  // arch 2
+  myTurtle.penUp();
+  myTurtle.moveTo(0, 275);
+  myTurtle.penDown();
+  myTurtle.pushState();
+  // draw the triangle
+  for (var i = 0; i < 62; i++) {
+    stroke(random(55, 100), random(100), random(100), 70);
+    myTurtle.moveForward(500);
+    myTurtle.turnRight(78);
+  }
+  myTurtle.popState();
 
-function drawGrassBlade(x, y) {
-  let bladeHeight = max(
-    random(1, 30),
-    random(1, 30),
-    random(1, 30),
-    random(1, 30),
-    random(1, 30),
-    random(1, 30)
-  );
+  // arch 3
+  myTurtle.penUp();
+  myTurtle.moveTo(45, 400);
+  myTurtle.penDown();
+  myTurtle.pushState();
+  // draw the triangle
+  for (var i = 0; i < 42; i++) {
+    stroke(random(40, 100), random(100), random(100), 50);
+    myTurtle.moveForward(400);
+    myTurtle.turnRight(78);
+  }
+  myTurtle.popState();
 
-  let bladeLean = random(-0.3, 0.3);
-  bladeLean *= bladeHeight;
+  // arch 4
+  myTurtle.penUp();
+  myTurtle.moveTo(100, 490);
+  myTurtle.penDown();
+  myTurtle.pushState();
+  // draw the triangle
+  for (var i = 0; i < 22; i++) {
+    stroke(random(25, 100), random(100), random(100), 30);
+    myTurtle.moveForward(300);
+    myTurtle.turnRight(78);
+  }
+  myTurtle.popState();
 
-  line(x, y, x + bladeLean, y - bladeHeight);
-}
+  // // little sun
+  // myTurtle.pushState();
+  // myTurtle.penUp();
+  // myTurtle.moveTo(400, 0);
+  // myTurtle.penDown();
 
-// find the RGBA values of the pixel at x, y in the img.pixels array
-// see: http://p5js.org/reference/#/p5/pixels[]
-// we don't need to worry about screen pixel density here, because we are not reading from the screen
+  // for (var i = 0; i < 30; i++) {
+  //   stroke(random(0, 10), 50, 90);
+  //   myTurtle.moveForward(80);
+  //   myTurtle.turnRight(78);
+  // }
+  // myTurtle.popState();
 
-function getQuick(img, x, y) {
-  let i = (y * img.width + x) * 4;
-  return [
-    testImage.pixels[i],
-    testImage.pixels[i + 1],
-    testImage.pixels[i + 2],
-    testImage.pixels[i + 3]
-  ];
+  noLoop();
 }

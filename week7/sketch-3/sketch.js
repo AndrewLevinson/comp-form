@@ -3,62 +3,53 @@
 // require /turtles/turtle/turtle.js
 
 let canvas = { width: 500, height: 500 };
-let myTurtle;
+
+// require https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js
+// require /turtles/turtle/turtle.js
+
+var myTurtle;
+var aImage;
+
+function preload() {
+  aImage = loadImage("turtle.png");
+}
+// require https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js
+// require /turtles/turtle/turtle.js
+
+var myTurtle;
 
 function setup() {
   createCanvas(500, 500);
   colorMode(HSB, 100);
   noFill();
-  // stroke(50, 50, 50);
-  background(10, 12, 97);
-  // noLoop();
+  // stroke(100, 20, 20);
+  // background(20, 20, 20);
+  noLoop();
 
   myTurtle = new Turtle();
-  myTurtle.penUp();
 }
 
 function draw() {
-  // background(90, 20, 90);
+  myTurtle.penUp();
+  myTurtle.moveTo(260, 320);
+  myTurtle.penDown();
 
-  for (let i = 0; i < 10; i++) {
-    myTurtle.moveTo(width / 2, height / 2);
-    for (let x = 0; x < 300; x++) {
-      myTurtle.penDown();
-      myTurtle.moveForward(1);
-      myTurtle.turnRight(1);
-    }
-    myTurtle.penUp();
-    myTurtle.moveForward(10);
-    stroke(random(70, 90), random(50, 80), 100);
+  for (var i = 0; i < 300; i++) {
     myTurtle.turnLeft(20);
+    myTurtle.moveForward(25 + i * 0.15);
+    drawLeaf();
+  }
+}
+
+function drawLeaf() {
+  myTurtle.pushState();
+
+  for (i = 0; i < 1; i++) {
+    myTurtle.moveForward(2);
+    myTurtle.turnLeft(18);
+    stroke(20, 30, 60);
+    myTurtle.image(aImage, 42, 42);
   }
 
-  // for (let i = 0; i < 10; i++) {
-  //   myTurtle.moveTo(width / 2, height / 2 - 50);
-  //   for (let x = 0; x < 300; x++) {
-  //     myTurtle.penDown();
-  //     myTurtle.moveForward(1);
-  //     myTurtle.turnRight(1);
-  //   }
-  //   myTurtle.penUp();
-  //   myTurtle.moveForward(10);
-  //   stroke(random(20), random(20, 50), 100);
-  //   myTurtle.turnLeft(20);
-  // }
-
-  // for (let i = 0; i < 10; i++) {
-  //   myTurtle.moveTo(width / 2, height / 2 - 50);
-  //   for (let x = 0; x < 300; x++) {
-  //     myTurtle.penDown();
-  //     myTurtle.moveForward(1);
-  //     myTurtle.turnRight(1);
-  //   }
-  //   myTurtle.penUp();
-  //   myTurtle.moveForward(10);
-  //   stroke(random(20), random(20, 50), 100);
-  //   myTurtle.turnLeft(20);
-  // }
-
-  myTurtle.moveForward(2);
-  myTurtle.turnLeft(0.1);
+  myTurtle.popState();
 }
