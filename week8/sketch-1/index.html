@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sketch 1</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        padding: 0;
+        text-align: left;
+        /* width: 80%; */
+        /* margin: 0 auto; */
+      }
+      #myCanvas {
+        width: 100%;
+        height: auto;
+      }
+
+      button {
+        /* border-radius: 6px; */
+        color: #3d3d3d;
+        padding: 0.3rem;
+        border: none;
+        font-family: monospace;
+        text-transform: uppercase;
+        background-color: #fff;
+        box-shadow: 4px 4px 0px 0px #3d3d3d;
+      }
+
+      /* input {
+        border-radius: 8px;
+        height: 22px;
+        width: 300px;
+      } */
+
+      button:hover {
+        cursor: pointer;
+      }
+
+      button:focus {
+        outline: none;
+      }
+    </style>
+
+    <!-- Load the Paper.js library -->
+    <script type="text/javascript" src="../../lib/paper-full.min.js"></script>
+
+    <!-- Load external PaperScript and associate it with myCanvas -->
+    <script type="text/paperscript" src="sketch.js" canvas="myCanvas"></script>
+  </head>
+
+  <body>
+    <canvas id="myCanvas" resize></canvas>
+  </body>
+</html>
