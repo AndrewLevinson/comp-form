@@ -44,8 +44,8 @@ function setup() {
   for (var i = 0; i < quantity; i++) {
     ballX[i] = random(5, 495);
     ballY[i] = random(5, 395);
-    speedX[i] = -3;
-    speedY[i] = -3;
+    speedX[i] = -5;
+    speedY[i] = -5;
   }
   // establish starting paddle w x h
   paddleWidth = 150;
